@@ -126,7 +126,7 @@
 
 <!-- ══ NAV ══ -->
 <nav class="app-nav">
-  <span class="brand">🎓 AttendEasy</span>
+  <span class="brand">🎓 OJTAttendance</span>
   <button class="nav-tab active" onclick="switchPage('attendance',this)">📋 Attendance</button>
   <button class="nav-tab"        onclick="switchPage('history',this)">📊 History</button>
   <button class="nav-tab"        id="adminNavBtn" onclick="adminTabClick()">⚙️ Admin</button>
@@ -364,7 +364,7 @@ const getStudents = () => window._students || [];
 const getRecords  = () => window._records  || [];
 
 const todayStr = () => new Date().toISOString().split('T')[0];
-const isFuture = d => d > todayStr();
+const isFuture = d => d !== todayStr();
 
 function fmtDate(d) {
   return new Date(d+'T00:00:00').toLocaleDateString('en-US',{weekday:'short',year:'numeric',month:'short',day:'numeric'});
@@ -398,7 +398,7 @@ function adminTabClick() {
   setTimeout(() => document.getElementById('pwInput').focus(), 120);
 }
 function checkPassword() {
-  if (document.getElementById('pwInput').value === '1234') {
+  if (document.getElementById('pwInput').value === '000') {
     adminUnlocked = true;
     document.getElementById('pwModal').classList.remove('show');
     switchPage('admin', document.getElementById('adminNavBtn'));
@@ -801,9 +801,10 @@ function closeConfirm() {
 //  INIT
 // ══════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
-  const d = document.getElementById('attDate');
-  d.value = todayStr();
-  d.max   = todayStr();
+const d = document.getElementById('attDate');
+d.value = todayStr();
+d.min   = todayStr();
+d.max   = todayStr();
   renderAttendance();
 });
 </script>
